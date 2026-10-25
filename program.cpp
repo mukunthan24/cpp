@@ -1,28 +1,62 @@
 #include<iostream>
 using namespace std;
-class Student{
-    private:
-    int rollNo;
-    string name;
+class Shape{
     public:
-    Student(int r,string n)
-    {
-        rollNo=r;
-        name=n;
-        cout<<"Student object is created"<<endl;
+    virtual float area()=0;
+};
+class Circle:public Shape{
+    private:
+    float radius;
+    public:
+    Circle (float r){
+        radius=r;
 
     }
-void display(){
-    cout<<"Roll Number:"<<rollNo<<endl;
-    cout<<"Name:"<<name<<endl;
-}
-~Student(){
-    cout<<"Student object is destroyed"<<endl;
-}
-
+    float area(){
+        return 3.14*radius*radius;
+    }
+};
+class Rectangle:public Shape{
+    private:
+    float length,breadth;
+    public:
+    Rectangle(float l,float b){
+        length=l;
+        breadth=b;
+    }
+    float area(){
+        return length*breadth;
+    }
+};
+class Triangle:public Shape{
+    private:
+    float base,height;
+    public:
+    Triangle(float tb,float th){
+        base=tb;
+        height=th;
+    }
+    float area(){
+        return 0.5*base*height;
+    }
 };
 int main(){
-Student s1(101,"Arun");
-s1.display();
-return 0;
+    float r,l,b,th,tb;
+    cout<<"Enter the circle radius:";
+    cin>>r;
+    cout<<"Enter the length and breadth of rectangle:";
+    cin>>l>>b;
+    cout<<"Enter the base and height of the triangle:";
+    cin>>tb>>th;
+    Circle c(r);
+    Rectangle rec(l,b);
+    Triangle t(tb,th);
+    Shape*ptr;
+    ptr=&c;
+    cout<<"Circle Area:"<<ptr->area()<<endl;
+    ptr = &rec;
+    cout<<"Rectangle Area:"<<ptr->area()<<endl;
+    ptr=&t;
+    cout<<"Triangle Area:"<<ptr->area()<<endl;
+    return 0;
 }
